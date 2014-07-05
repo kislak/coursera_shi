@@ -53,7 +53,10 @@ int main(int argc, char* argv[]) {
   // to 11 instead? How about 100? 1000? Make sure to set
   // the second argument back to 10 when you are done
   // testing.
-  // Answer:
+  // Answer: The program compiles and runs without errors for me.
+  // but it allocate only 10 int and use 11 (100,1000),
+  // so it uses memory not in the way it should.
+
   fillArray(array, 10);
 
   int value;
@@ -65,7 +68,11 @@ int main(int argc, char* argv[]) {
   // TODO(2): We can actually use the address of the value
   // declared here as if it were an array of a single
   // element; why is this possible?
-  // Answer:
+  // Answer: C does not track array lengths
+  // fillArray() expects int* and it gets it as &value,
+  // so it consider the &value to be address of array.
+  // the same trick is possible as in prev todo fillArray(&value, 2);
+
   fillArray(&value, 1);
   // fillArray should set value to 0 * 3 + 2 = 2.
   assert(value == 2);
@@ -116,7 +123,7 @@ int main(int argc, char* argv[]) {
   // it. valgrind is a tool for analyzing how programs
   // use memory, which is often invaluable for C and
   // C++ programming.
-  // Answer:
+  // Answer: Valgrind detects memory leak.
   free(heap_array);
 
   // TODO(4): Now it's your turn to write some code.
@@ -131,5 +138,18 @@ int main(int argc, char* argv[]) {
   // you would expect. (Hint, you'll need to use the
   // -> operator to access fields of a FourInts*
   // variable instead of the . operator).
+
+  FourInts* heap_four_ints;
+  heap_four_ints = (FourInts*) malloc(sizeof(FourInts));
+
+  fillArray((int*) heap_four_ints, 4);
+
+  assert(heap_four_ints -> a == 2);
+  assert(heap_four_ints -> b == 5);
+  assert(heap_four_ints -> c == 8);
+  assert(heap_four_ints -> d == 11);
+
+  free(heap_four_ints);
+
   return 0;
 }
