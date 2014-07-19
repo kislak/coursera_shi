@@ -6,6 +6,9 @@
 // the declaration of the printf() function, and stdlib.h
 // contains the declaration of the malloc() and free()
 // functions, all of which are used in the code below.
+
+// gcc -g -Wall -std=gnu99 -o arrays arrays.c
+
 #include <assert.h>
 #include <stdio.h>
 #include <stdlib.h>
